@@ -1,0 +1,342 @@
+.modal{
+    position: fixed;
+    inset: 0% 0px 0px 0%;
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    margin-top: 0px;
+    margin-left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+
+    .modal_content{
+        width: 43%;
+        min-height: 30%;
+        background: white;
+        margin: auto;
+        z-index: 1000;
+        max-height: 37.5em;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        position: fixed;
+        left: 27%;
+        top: 5%;
+        
+        font-size: 16px;
+
+        hr{
+            margin: 0px 0 1.25em 0;
+            background-color: #DBDBDB;
+            height: 2px;
+        }
+
+        .modal_top{
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 1.25em 0px;
+
+            h2{
+                font-size: 1.5em;
+                font-weight: 700;
+                color: #263238;
+                margin-bottom: 0px;
+            }
+
+            button{
+                background: none;
+                border: 0px;
+
+                img{
+                    width: 1.125em;
+                }
+            }
+        }
+
+        .modal_body{
+            width: 90%;
+            margin: auto;
+
+          .imgcontainer{
+            img{
+              height: 50px;
+            }
+          }
+          
+          .u_img{
+
+          p{
+            font-size: 1.125em;
+    font-family: Dax;
+    font-weight: 700;
+    color: var(--green);
+          }
+          
+          input{
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            z-index: 2;
+          }
+            
+          }
+
+            .row{
+                margin-bottom: 0.938em;
+            }
+            .form-control{
+                font-size: 1.125em;
+                font-weight: 500;
+                color: #11263C;
+                box-shadow: none !important;
+                outline: none ;
+                border-radius: 0.625em;
+                border: 1px solid var(#f8f8f8);
+                
+              }
+              .form-textbox{
+                height: 8.5em;
+              }
+              .input-lebel{
+                font-size: 1.125em;
+                font-weight: 500;
+                color: var(--black2);
+                margin-bottom: 0.313em;
+              }
+
+              .input-lebel2{
+                font-family: Dax;
+                font-size: 1.125em;
+                font-weight: 700;
+                color: var(--black3);
+                margin-bottom: 0.313em;
+              }
+
+              .input-lebel3{
+                font-size: 1.125em;
+                font-weight: 700;
+                color: #11263C;
+              }
+              
+
+            .input-group{
+                border: 1px solid #f8f8f8;
+                border-radius: 10px;
+
+                
+              }
+              .react-datepicker-wrapper{
+                flex: 1;
+                height: 100%;
+                }
+                .react-datepicker__input-container{
+                  height: 100%;
+                }
+
+            .input-group span{
+                background-color: transparent;
+                border: none;
+                font-size: 1.25em;
+                font-weight: 700;
+              }
+
+              .input-group span img{
+                width: 1.125em;
+              }
+
+            .input-group input{
+                border: none;
+                outline: none;
+                background-color: transparent;
+                box-shadow: none;
+                height: 2.5em;
+                font-size: 1.125em;
+                color: #11263c;
+                font-weight: 500;
+                width: inherit;
+              }
+
+
+              .form-control::placeholder, .input-group input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #9398A1;
+                font-size: 1.125em;
+                font-weight: 500;
+                opacity: 1; /* Firefox */
+              }
+              
+              .form-control:-ms-input-placeholder, .input-group input::placeholder { /* Internet Explorer 10-11 */
+                color: #9398A1;
+                font-size: 1.125em;
+                font-weight: 500;
+              }
+              
+              .form-control::-ms-input-placeholder, .input-group input::placeholder{ /* Microsoft Edge */
+                color: #9398A1;
+                font-size: 1.125em;
+                font-weight: 500;
+              }
+
+            .form_buttons{
+                display: flex;
+                margin: 1.25em 0px !important;
+                justify-content: flex-end;
+              }
+              
+              .form_buttons button{
+                background-color: rgba(195,7,63,0.15);
+                color: var(--green);
+                border: 0px;
+                outline: none;
+                padding: 5px 20px;
+                font-family: Dax;
+                font-size: 1.375em;
+                border-radius: 10px;
+                font-weight: 700;
+                margin-right: 20px;
+              }
+              
+              .form_buttons input{
+                background-color: red;
+                color: #ffffff;
+                border: 0px;
+                outline: none;
+                padding: 5px 20px;
+                font-family: Dax;
+                border-radius: 0.625em;
+                font-size: 1.375em;
+                font-weight: 700;
+              }
+              
+              #c_b1{
+                width: 1em;
+                margin: auto 0;
+                margin-right: 0.625em;
+              }
+
+              .addon_button{
+                padding: 10px 20px;
+                border-radius: 20px;
+                border: none;
+                background-color: var(--green);
+                color: white;
+                margin-top: auto;
+
+              }
+
+              .del_img{
+                transform: rotate(-45deg);
+                border: none;
+                background: none;
+                margin-left: 10px;
+
+                  img{
+                    width: 12px;
+
+                  }
+                }
+
+
+              .addon_pill{
+                display: flex;
+                background-color: var(--gray2);
+                border-radius: 20px;
+                padding: 2px 15px;
+                width: -webkit-fit-content;
+                width: fit-content;
+                margin: 5px 15px 5px 0;
+                p{
+                  margin-right: 10px;
+                  font-size: 1em;
+                  font-weight: 500;
+                  color: var(--black3);
+                }
+
+              }
+
+              .form-select {
+                border-radius: 10px;
+                border: 1px solid var(--gray5);
+                font-size: 1.125em;
+                font-weight: 500;
+                color: #11263c;
+                box-shadow: none;}
+    
+        }
+
+        @media only screen and (max-width: 680px) {
+         width: 80%;
+         left: 10%;
+        }
+
+        @media only screen and (max-width: 1280px) {
+          font-size: 12px !important;
+        }
+        @media only screen and (max-width: 1024px) {
+          font-size: 10px !important;
+        }
+        @media only screen and (max-width: 1600px) {
+          font-size: 13px;
+        }
+    }
+
+    .makeStyles-iconContainer-3 {
+      padding-top: 10px !important;
+    }
+
+    .makeStyles-container-1 {
+      margin-bottom: 20px;
+    }
+    
+    .socialMediaButton {
+      margin-right: 10px;
+    }
+
+    .makeStyles-copyContainer-5 {
+      color: #263238;
+      width: 100%;
+      border: 1px solid grey;
+      cursor: text;
+      display: inline-flex;
+      padding: 14px;
+      position: relative;
+      font-size: 14px;
+      background: black;
+      box-sizing: border-box;
+      font-style: normal;
+      align-items: center;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: normal;
+      border-radius: 4px;
+      letter-spacing: -0.05px;
+      margin-bottom: 12px;
+      margin-top: 12px;
+    }
+
+    .makeStyles-copyUrl-6 {
+      color: white;
+      font-size: 16px;
+      max-width: calc(100% - 55px);
+      overflow-x: auto;
+      line-height: 24px;
+      white-space: nowrap;
+    }
+
+    .makeStyles-copyIcon-7 {
+      color: #0C66FF;
+      right: 30px;
+      width: auto;
+      position: absolute;
+      font-weight: bold;
+    }
+
+    .makeStyles-copyIcon-7 a {
+      text-decoration: none;
+    }
+    
+    
