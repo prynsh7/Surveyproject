@@ -3,7 +3,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 import "./Modal.scss"
 import axios from 'axios';
-import { ADD_CATEGORY } from '../../utils/apiConstant';
+import { ADD_FACULTY, HEADERS } from '../../utils/apiConstant';
 
 const override = css`
   display: block;
@@ -14,17 +14,27 @@ const override = css`
   z-index: 2001;
 `;
 
-function CategoryModal({showModal, setShowModal, data, setData, setTrigger}) {
+function CategoryModal({ showModal, setShowModal, data, setData, setTrigger }) {
 
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [img, setImg] = useState()
     const [parentId, setParentId] = useState()
 
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
     let [loading, setLoading] = useState(false);
     let [color, setColor] = useState("#000000");
-  
 
+
+
+    const auth = localStorage.getItem("auth");
+
+    const headers = {
+        "Authorization": `Bearer ${auth}`
+    }
 
     useEffect(() => {
 
@@ -39,39 +49,38 @@ function CategoryModal({showModal, setShowModal, data, setData, setTrigger}) {
 
 
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
 
         const obj = {
-            title: title,
-            description:description,
-            image: img,
-            parent_id: parentId
+            name: name,
+            email: email,
+            password: password
         }
 
-        await axios.post(ADD_CATEGORY, obj)
-        .then(res => {
-            console.log(res.data);
-            alert(res.data.data);
-            setTrigger(prev => !prev)
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        await axios.post(ADD_FACULTY, obj, {headers: headers})
+            .then(res => {
+                console.log(res.data);
+                alert(res.data.data);
+                setTrigger(prev => !prev)
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
-    
+
 
 
 
     const handleUpdate = async () => {
-        
+
         const obj = {
             title: title,
-            description:description,
+            description: description,
             image: img,
             parent_id: parentId
         }
 
-        await axios.put(`${ADD_CATEGORY}/${data.id}`, obj)
+        await axios.put(`${ADD_FACULTY}/${data.id}`, obj, {headers: headers})
             .then(res => {
                 console.log(res.data);
                 alert(res.data.message);
@@ -104,9 +113,9 @@ function CategoryModal({showModal, setShowModal, data, setData, setTrigger}) {
 
     return (
         <>
-        <>{ loading ?
-    <div className='loader'>
-    <ClipLoader color={color} loading={true} css={override} size={150} /> </div> : null}</> 
+            <>{loading ?
+                <div className='loader'>
+                    <ClipLoader color={color} loading={true} css={override} size={150} /> </div> : null}</>
             {showModal ? <>
 
                 <div className="modal" >
@@ -119,63 +128,38 @@ function CategoryModal({showModal, setShowModal, data, setData, setTrigger}) {
                     <hr />
                     <div className="modal_body">
 
-                        {/* <div className="row">
-                            <div className="col-6">
-
-                                <div className="u_img">
-
-                                    <input
-                                        type='file'
-                                        accept='image/*' />
-                                    <p>
-                                        Upload Image
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div> */}
 
 
                         <div className="row">
                             <div className="col">
                                 <label className="input-lebel">
-                                    Category Name
+                                    Name
                                 </label>
-                                <input type="text" value={title} className="form-control" placeholder="Enter the Name" onChange = {(e) => setTitle(e.target.value)}/>
+                                <input type="text" value={name} className="form-control" placeholder="Enter the Name" onChange={(e) => setName(e.target.value)} />
                             </div>
                         </div>
 
-                        
+
 
                         <div className="row">
                             <div className="col">
                                 <label className="input-lebel">
-                                    Description
+                                    Email
                                 </label>
-                                <input type="text" value={description} className="form-control" placeholder="Enter the Description" onChange = {(e) => setDescription(e.target.value)}/>
+                                <input type="email" value={email} className="form-control" placeholder="Enter the email" onChange={(e) => setEmail(e.target.value)} />
                             </div>
                         </div>
 
                         <div className="row">
                             <div className="col">
                                 <label className="input-lebel">
-                                    Image
+                                    Password
                                 </label>
-                                <input type="text" value={img} className="form-control" placeholder="Enter the Image url" onChange = {(e) => setImg(e.target.value)}/>
+                                <input type="text" value={password} className="form-control" placeholder="Enter the Image url" onChange={(e) => setPassword(e.target.value)} />
                             </div>
                         </div>
 
 
-                        <div className="row">
-                            <div className="col">
-                                <label className="input-lebel">
-                                    Parent Id
-                                </label>
-                                <input type="number" value={parentId} className="form-control" placeholder="Enter the Parent Id" onChange = {(e) => setParentId(e.target.value)}/>
-                            </div>
-                        </div>
-
-                        
                         <div className="row">
                             <div className="col"></div>
                             <div className="col">

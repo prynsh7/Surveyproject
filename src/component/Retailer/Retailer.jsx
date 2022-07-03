@@ -1,11 +1,15 @@
 import React, { useState, useEffect} from 'react'
 import { GET_RETAILER } from '../../utils/apiConstant';
 import axios from "axios"
+import RetailerModal from '../Modal/RetailerModal';
 
 function Retailer() {
 
     const [retailer, setRetailer] = useState();
     const [showModal, setShowModal] = useState(false);
+    const [data, setData] = useState();
+    const [trigger, setTrigger] = useState()
+
 
     const getData = async () => {
         await axios.get(GET_RETAILER)
@@ -22,7 +26,7 @@ function Retailer() {
 
         getData();
 
-    }, [])
+    }, [trigger])
 
 
 
@@ -32,22 +36,18 @@ function Retailer() {
 
     return (
         <div className='content'>
-            <div className="header">
-                <button onClick={openModal}>Add Retailer</button>
-            </div>
+            <RetailerModal showModal={showModal} setShowModal={setShowModal} data={data} setData={setData} setTrigger={setTrigger} />
 
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">address</th>
-                        <th scope="col">image</th>
-                        <th scope="col">rating</th>
-                        <th scope="col">min_order_value</th>
-                        <th scope="col">avg_delivery_time</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">user Id</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Is Verified</th>
+                        <th scope="col">Shop Address</th>
+                        <th scope="col">Shop Name</th>
                         <th scope="col">status</th>
                         <th scope="col">Setting</th>
                         
@@ -57,16 +57,19 @@ function Retailer() {
                     {retailer && retailer.map((data, key) => {
                         return <tr>
                             <th scope="row">{key + 1}</th>
-                            <td>{data.name}</td>
-                            <td>{data.phone}</td>
-                            <td>{data.email}</td>
-                            <td>{data.address}</td>
+                            <td>{data.id}</td>
+                            <td>{data.user_id}</td>
                             <td>{data.image}</td>
-                            <td>{data.rating}</td>
-                            <td>{data.min_order_value}</td>
-                            <td>{data.avg_delivery_time}</td>
+                            <td>{data.isVerified}</td>
+                            <td>{data.shop_address}</td>
+                            <td>{data.shop_name}</td>
                             <td>{data.status}</td>
-                            <td><button>Edit</button></td>
+                            <td><button onClick={(e) => {
+                                e.preventDefault();
+                                setData(data);
+                                openModal()
+                            }}>Edit</button></td>
+
                         </tr>
                     })}
                 </tbody>

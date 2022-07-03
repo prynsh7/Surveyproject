@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 import "./Modal.scss"
-import { ADD_PRODUCT } from '../../utils/apiConstant';
+import { ADD_CAMP, GET_FACULTY, GET_LOCATIONS, HEADERS } from '../../utils/apiConstant';
 import axios from "axios"
+import Select from 'react-select'
 
 const override = css`
   display: block;
@@ -14,42 +15,127 @@ const override = css`
   z-index: 2001;
 `;
 
-function ProductModal({ showModal, setShowModal, }) {
+function ProductModal({ showModal, setShowModal, data, setData, setTrigger, location, faculty }) {
 
 
     const [name, setName] = useState();
     const [price, setPrice] = useState();
-    const [brand_id, setBrand_id] = useState();
+    const [brandId, setBrandId] = useState();
     const [categoryId, setCategroyId] = useState();
     const [manufacturerId, setManufacturerId] = useState();
     const [sampleAvailable, setSampleAvailable] = useState(false);
     const [images, setImages] = useState();
+    const [locationItem, setLocationItem] = useState(null);
+    const [facultyItem, setFacultyItem] = useState(null);
 
     let [loading, setLoading] = useState(false);
     let [color, setColor] = useState("#000000");
 
 
+    const auth = localStorage.getItem("auth");
+
+    const headers = {
+        "Authorization": `Bearer ${auth}`
+    }
+
     const handleSubmit = async () => {
 
         const obj = {
             name: name,
-            price: price,
-            brand_id: brand_id,
+            locationId: locationItem
+        }
+
+
+        var arr2 = [];
+
+        for(var j of facultyItem){
+            arr2.push(j.value);
+        }
+
+        obj.faculty = arr2;
+        
+
+
+        await axios.post(ADD_CAMP, obj, { headers: headers })
+            .then(res => {
+                console.log(res.data);
+                alert(res.data.message);
+                setTrigger(prev => !prev)
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+
+
+    
+
+
+    useEffect(() => {
+
+        if (data) {
+
+            setName(data.name)
+            setPrice(data.mrp)
+            setBrandId(data.brand_id)
+            setCategroyId(data.category_id)
+            setManufacturerId(data.manufacturer_id)
+            setSampleAvailable(data.sample_available)
+            setImages(data.images)
+        }
+
+    }, [data])
+
+
+
+    const handleUpdate = async () => {
+
+        const obj = {
+            name: name,
+            mrp: parseInt(price),
+            brand_id: brandId,
             category_id: categoryId,
             manufacturer_id: manufacturerId,
             sample_available: sampleAvailable,
             images: images
         }
 
-        await axios.post(ADD_PRODUCT, obj)
+        await axios.put(ADD_CAMP, obj)
             .then(res => {
                 console.log(res.data);
                 alert(res.data.message);
+                setTrigger(prev => !prev)
             })
             .catch(err => {
                 console.log(err);
             })
     }
+
+
+
+    const close = () => {
+
+        setName()
+        setPrice()
+        setBrandId()
+        setCategroyId()
+        setManufacturerId()
+        setSampleAvailable()
+        setData();
+    }
+
+
+    const closeModal = () => {
+
+        close()
+        setShowModal(prev => !prev)
+
+    }
+
+
+
 
     return (
         <>
@@ -62,28 +148,39 @@ function ProductModal({ showModal, setShowModal, }) {
                 </div>
                 <div className="modal_content">
                     <div className="modal_top">
-                        <h2>Add Product </h2>
+                        <h2>Add Camp </h2>
                         <button  ><img src="./Assets/x.svg" alt="" /></button>
                     </div>
                     <hr />
                     <div className="modal_body">
 
-                        {/* <div className="row">
-                            <div className="col-6">
 
-                                <div className="u_img">
+                        <div className="row">
+                            <div className="col">
 
-                                    <input
-                                        type='file'
-                                        accept='image/*' />
-                                    <p>
-                                        Upload Image
-                                    </p>
-                                </div>
-
+                                <label class="input-lebel" for="">Location</label>
+                                <select class="form-select form-select-lg" id="year" value={locationItem} onChange={(e) => setLocationItem(e.target.value)}>
+                                    <option >Please select a Location</option>
+                                    {location && location.map((data, key) => {
+                                        return <option key={key} value={data._id}>{data.name}</option>
+                                    })}
+                                </select>
                             </div>
-                        </div> */}
 
+                        </div>
+
+                        <div className="row">
+                            <div className="col">
+                                <label class="input-lebel" for="">Faculty</label>
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    isMulti
+                                    options={faculty}
+                                    // value={facultyItem}
+                                    onChange={(e) => setFacultyItem(e)}
+                                />
+                            </div>
+                        </div>
 
                         <div className="row">
                             <div className="col">
@@ -95,7 +192,7 @@ function ProductModal({ showModal, setShowModal, }) {
                         </div>
 
 
-
+{/* 
                         <div className="row">
                             <div className="col">
                                 <label className="input-lebel">
@@ -110,7 +207,7 @@ function ProductModal({ showModal, setShowModal, }) {
                                 <label className="input-lebel">
                                     Brand Id
                                 </label>
-                                <input type="number" value={brand_id} className="form-control" placeholder="Enter the Email" onChange={(e) => setBrand_id(e.target.value)} />
+                                <input type="number" value={brandId} className="form-control" placeholder="Enter the Brand Id" onChange={(e) => setBrandId(e.target.value)} />
                             </div>
                         </div>
 
@@ -150,15 +247,16 @@ function ProductModal({ showModal, setShowModal, }) {
                                 </label>
                                 <input type="text" value={images} className="form-control" placeholder="Enter the Address" onChange={(e) => setImages(e.target.value)} />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="row">
                             <div className="col"></div>
                             <div className="col">
                                 <div className="form_buttons">
-                                    <button className="btn btn-primary" onClick={() => setShowModal(prev => !prev)} >Cancel</button>
+                                    <button className="btn btn-primary" onClick={() => closeModal()} >Cancel</button>
 
-                                    <input type="submit" onClick={() => handleSubmit()} />
+
+                                    {data ? <input type="submit" value="update" onClick={() => handleUpdate()} /> : <input type="submit" onClick={() => handleSubmit()} />}
                                 </div>
                             </div>
                         </div>

@@ -2,3 +2,22 @@
   margin: 0px;
   padding: 0px;
 }
+
+
+:root {
+  --black: #919191;
+    --black2: #2c2c2c;
+    --black3: #263238;
+    --black4 : #1A1A1D;
+    --white: #ffffff;
+    --gray3: #f7f7f7;
+    --gray2: #F8F8FB;
+    --green: #c3073f;
+    --gray: #EAEAF0;
+    --red: #950740;
+    --gray4: #9398A1;
+    --gray5: #dbdbdb;
+    --gray6: #747A8D;
+    --gray7: #9498A0;
+    --gray8: #656A72;
+}

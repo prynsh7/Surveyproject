@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 import "./Modal.scss"
-import { ADD_MANUFACTURER } from '../../utils/apiConstant';
+import { ADD_LOCATION, ADD_LOCATIONS } from '../../utils/apiConstant';
 import axios from "axios"
 
 const override = css`
@@ -16,6 +16,8 @@ const override = css`
 
 function ManufacturerModal({ showModal, setShowModal, data, setData, setTrigger }) {
 
+
+    const [id, setId] = useState();
     const [name, setName] = useState();
     const [phone, setPhone] = useState();
     const [email, setEmail] = useState();
@@ -33,6 +35,7 @@ function ManufacturerModal({ showModal, setShowModal, data, setData, setTrigger 
     useEffect(() => {
 
         if (data) {
+            setName(data.id)
             setName(data.name)
             setPhone(data.phone)
             setEmail(data.email)
@@ -49,17 +52,24 @@ function ManufacturerModal({ showModal, setShowModal, data, setData, setTrigger 
     const handleSubmit = async () => {
 
         const obj = {
+            id: id,
             name: name,
             phone: phone,
             email: email,
             address: address,
             image: image,
             min_order_value: minOrder,
-            avg_delivery_time: avgDelivery,
+            avg_dispatch_time: avgDelivery,
             status: status
         }
 
-        await axios.post(ADD_MANUFACTURER, obj)
+        const auth = localStorage.getItem("auth");
+
+        const headers = {
+            "Authorization": `Bearer ${auth}`
+        }
+
+        await axios.post(ADD_LOCATIONS, obj, {headers: headers})
             .then(res => {
                 console.log(res.data);
                 alert(res.data.message);
@@ -72,7 +82,7 @@ function ManufacturerModal({ showModal, setShowModal, data, setData, setTrigger 
 
 
     const handleUpdate = async () => {
-        
+
         const obj = {
             name: name,
             phone: phone,
@@ -80,11 +90,11 @@ function ManufacturerModal({ showModal, setShowModal, data, setData, setTrigger 
             address: address,
             image: image,
             min_order_value: minOrder,
-            avg_delivery_time: avgDelivery,
+            avg_dispatch_time: avgDelivery,
             status: status
         }
 
-        await axios.put(`${ADD_MANUFACTURER}/${data.id}`, obj)
+        await axios.put(`${ADD_LOCATIONS}/${data.id}`, obj)
             .then(res => {
                 console.log(res.data);
                 alert(res.data.message);
@@ -141,27 +151,11 @@ function ManufacturerModal({ showModal, setShowModal, data, setData, setTrigger 
                 </div>
                 <div className="modal_content">
                     <div className="modal_top">
-                        <h2>Add Menu Item</h2>
+                        <h2>Add LOCATION</h2>
                         <button  ><img src="./Assets/x.svg" alt="" /></button>
                     </div>
                     <hr />
                     <div className="modal_body">
-
-                        {/* <div className="row">
-                            <div className="col-6">
-
-                                <div className="u_img">
-
-                                    <input
-                                        type='file'
-                                        accept='image/*' />
-                                    <p>
-                                        Upload Image
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div> */}
 
 
                         <div className="row">
@@ -178,67 +172,12 @@ function ManufacturerModal({ showModal, setShowModal, data, setData, setTrigger 
                         <div className="row">
                             <div className="col">
                                 <label className="input-lebel">
-                                    Phone
-                                </label>
-                                <input type="number" value={phone} className="form-control" placeholder="Enter the Phone" onChange={(e) => setPhone(e.target.value)} />
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col">
-                                <label className="input-lebel">
-                                    Email
-                                </label>
-                                <input type="email" value={email} className="form-control" placeholder="Enter the Email" onChange={(e) => setEmail(e.target.value)} />
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col">
-                                <label className="input-lebel">
                                     Address
                                 </label>
                                 <input type="text" value={address} className="form-control" placeholder="Enter the Address" onChange={(e) => setAddress(e.target.value)} />
                             </div>
                         </div>
 
-                        <div className="row">
-                            <div className="col">
-                                <label className="input-lebel">
-                                    Image
-                                </label>
-                                <input type="text" value={image} className="form-control" placeholder="Enter the Image" onChange={(e) => setImage(e.target.value)} />
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col">
-                                <label className="input-lebel">
-                                    min order
-                                </label>
-                                <input type="number" value={minOrder} className="form-control" placeholder="Enter the Address" onChange={(e) => setMinOrder(e.target.value)} />
-                            </div>
-                        </div>
-
-
-                        <div className="row">
-                            <div className="col">
-                                <label className="input-lebel">
-                                    avg Delivery
-                                </label>
-                                <input type="text" value={avgDelivery} className="form-control" placeholder="Enter the Avg Delivery tiME" onChange={(e) => setAvgDelivery(e.target.value)} />
-                            </div>
-                        </div>
-
-
-                        <div className="row">
-                            <div className="col">
-                                <label className="input-lebel">
-                                    Status
-                                </label>
-                                <input type="text" value={status} className="form-control" placeholder="ACTIVE/ UNVERIFIED/ INACTIVE/ BLOCKED" onChange={(e) => setStatus(e.target.value)} />
-                            </div>
-                        </div>
 
                         <div className="row">
                             <div className="col"></div>

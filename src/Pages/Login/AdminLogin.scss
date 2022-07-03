@@ -1,0 +1,157 @@
+
+.admin_login{
+
+    min-height: 100vh;
+
+    .right{
+        width: 50vw;
+        margin: auto;
+    }
+
+    .content {
+        font-size: 3.75em;
+        font-weight: 400;
+        text-align: left;
+        color: #ffffff;
+        margin: 3% 0% 2% 10%;
+      }
+      .content_heading {
+        font-size: 2.5em;
+        font-weight: 700;
+        margin-bottom: 10%;
+      }
+      .content span {
+        margin-top: 68px;
+        margin-left: 0px;
+    
+        font-weight: 400;
+        color: var(--green);
+      }
+    
+      .content-button {
+        font-family: "Karla", sans-serif;
+        background-color: var(--green);
+        color: var(--white);
+        border-radius: 10px;
+        font-size: 1.375em;
+        font-weight: 700;
+        margin: 2% 5% 30px 10%;
+        padding: 0.625em;
+        width: 50%;
+      }
+    
+      .right {
+        display: flex;
+      }
+    
+      .right_content {
+        width: 60%;
+        margin: 10% auto 0 auto;
+      }
+    
+      .form-floating > label {
+        margin-left: 0px;
+        font-size: 1.25em;
+        font-weight: 500;
+        color: var(--black2);
+        padding: 0.6rem 0.75rem;
+      }
+    
+      .form-floating > .form-control,
+      .form-floating > .form-select {
+        height: 3em;
+        line-height: 1.25;
+      }
+    
+      .form-floating > .form-control:focus ~ label,
+      .form-floating > .form-control:not(:placeholder-shown) ~ label,
+      .form-floating > .form-select ~ label {
+        opacity: 1;
+        font-size: 1em;
+        font-weight: 400;
+        color: var(--gray8);
+        transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+      }
+    
+      .form-floating > .form-control {
+        margin-left: 0px;
+        background: transparent;
+        border: 0px;
+        box-shadow: none;
+      }
+    
+      .input_section {
+        margin: 25px 0px;
+        background-color: var(--gray3);
+        border-radius: 10px;
+        display: flex;
+        height: 4em;
+        flex-direction: row;
+        align-items: center;
+      }
+    
+      .input_icon {
+        margin: 0 10px;
+        cursor: pointer;
+      }
+    
+      .input_icon img {
+        width: 1.25em;
+      }
+    
+      .password_hide {
+        margin-top: -0.875em;
+        margin-left: 0.313em;
+        font-weight: 700;
+      }
+    
+      .input_section .form-floating {
+        width: 100%;
+      }
+    
+      #checkbox1 {
+        width: 15px;
+        height: 15px;
+        margin-right: 15px;
+      }
+    
+      #checkbox_div {
+        display: flex;
+        align-items: center;
+      }
+    
+      #checkbox_div label,
+      .register_txt {
+        font-size: 1.25em;
+        color: var(--black2);
+        font-weight: 400;
+    
+        a {
+          text-decoration: none;
+          font-weight: 400;
+          color: var(--green);
+          cursor: pointer;
+        }
+      }
+    
+      .form_button {
+        background-color: var(--green);
+        color: var(--white);
+        border-radius: 10px;
+        font-size: 1.375em;
+        font-weight: 500;
+        border: 0px;
+        padding: 0.625em;
+        width: 100%;
+      }
+    
+      .body-links {
+        font-size: 1.25em;
+        text-decoration: none;
+        font-weight: 400;
+        color: var(--green);
+        cursor: pointer;
+      }
+
+  
+}

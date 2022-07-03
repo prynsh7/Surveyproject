@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { DotLoader } from 'react-spinners';
-import { GET_CATEGORY } from '../../utils/apiConstant';
-import CategoryModal from '../Modal/CategoryModal';
+import { GET_FACULTY, HEADERS } from '../../utils/apiConstant';
+import FacultyModal from '../Modal/FacultyModal';
 
 
 function Category() {
@@ -11,11 +11,18 @@ function Category() {
     const [trigger, setTrigger] = useState()
     const [data, setData] = useState()
 
+
+    const auth = localStorage.getItem("auth");
+
+    const headers = {
+        "Authorization": `Bearer ${auth}`
+    }
+
     const getData = async () => {
-        await axios.get(GET_CATEGORY)
+        await axios.get(GET_FACULTY, {headers: headers})
             .then(res => {
-                console.log(res)
-                setCategory(res.data)
+                localStorage.setItem("faculty", res.data.users);
+                setCategory(res.data.users)
             })
             .catch(err => {
                 console.log(err)
@@ -37,33 +44,28 @@ function Category() {
 
     return (
         <div className='content'>
-            <CategoryModal showModal={showModal} setShowModal={setShowModal} data={data} setData={setData} setTrigger={setTrigger} />
+            <FacultyModal showModal={showModal} setShowModal={setShowModal} data={data} setData={setData} setTrigger={setTrigger} />
             <div className="header">
-                <button onClick={openModal}>Add Category</button>
+                <button onClick={openModal}>Add Faculty</button>
             </div>
 
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Id</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Img</th>
-                        <th scope="col">parent Id</th>
-                        <th scope="col">Setting</th>
-
+                        <th scope='col'>Name</th>
+                        <th scope='col'>Email</th>
+                        <th scope='col'>Password</th>
                     </tr>
                 </thead>
                 <tbody>
                     {category ? category.map((data, key) => {
+                        if(!data.isAdmin)
                         return <tr>
                             <th scope="row">{key}</th>
-                            <td>{data.id}</td>
-                            <td>{data.title}</td>
-                            <td>{data.description}</td>
-                            <td>{data.image}</td>
-                            <td>{data.parent_id}</td>
+                            <td>{data.name}</td>
+                            <td>{data.email}</td>
+                            <td>{data.password}</td>
                             <td><button onClick={(e) => {
                                 e.preventDefault();
                                 setData(data);

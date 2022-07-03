@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
 // import AddMenu from './AddMenu/AddMenu';
 import './Dashboard.scss'
-import Manufacturer from './Manufacturer/Manufacturer';
-import Category from './Category/Category';
-import Product from './Product/Product';
+import Location from './Location/Location';
+import Faculty from './Faculty/Faculty';
+import Camp from './Camp/Camp';
 import Retailer from './Retailer/Retailer';
+import Truck from './Truck/Truck';
+import Order from './Order/Order';
+import { useNavigate, Navigate } from 'react-router';
+
 // import Orders from './Orders/Orders';
 
 function Dashboard() {
 
     const [menuOpen, setMenuOpen] = useState(true);
-    const [selected, setSelected] = useState('home');    
+    const [selected, setSelected] = useState('home');
+
+
+    const navigate = useNavigate();
+
+    const auth = localStorage.getItem("auth");
 
     return (
-
-
         <div className="dashboard">
-            <div  className={menuOpen ? `sidebar close` : 'sidebar'}  >
+            {
+                auth ? null : <Navigate replace to="login" /> 
+            }
+            <div className={menuOpen ? `sidebar close` : 'sidebar'}  >
 
                 <ul className="nav-links">
                     <li>
-                    <i className='bx bx-menu' onClick={()=> setMenuOpen(!menuOpen)} ></i>
+                        <i className='bx bx-menu' onClick={() => setMenuOpen(!menuOpen)} ></i>
                     </li>
                     <li>
                         <a href="#">
@@ -28,63 +38,49 @@ function Dashboard() {
                             <span className="link_name">Dashboard</span>
                         </a>
                         <ul className="sub-menu blank" >
-                            <li><a className="link_name" href="!#">Category</a></li>
+                            <li><a className="link_name" href="!#">Dashboard</a></li>
                         </ul>
                     </li>
-                    
+
                     <li>
-                        <a href="#" onClick={() => setSelected('manufacturer')}>
+                        <a href="#" onClick={() => setSelected('location')}>
                             <i className='bx bx-pie-chart-alt-2' ></i>
-                            <span className="link_name">manufacturers</span>
+                            <span className="link_name">Locations</span>
                         </a>
                         <ul className="sub-menu blank">
-                            <li><a className="link_name" href="#">manufacturers</a></li>
+                            <li><a className="link_name" href="#">Locations</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#!" onClick={() => setSelected('category')}>
+                        <a href="#!" onClick={() => setSelected('faculty')}>
                             <i className='bx bx-line-chart' ></i>
-                            <span className="link_name">Category</span>
+                            <span className="link_name">Faculty</span>
                         </a>
                         <ul className="sub-menu blank">
-                            <li><a className="link_name" href="#">Category</a></li>
+                            <li><a className="link_name" href="#">Faculty</a></li>
                         </ul>
                     </li>
-                    {/* <li>
-                        <div className="iocn-link">
-                            <a href="#">
-                                <i className='bx bx-plug' ></i>
-                                <span className="link_name">Status</span>
-                            </a>
-                            <i className='bx bxs-chevron-down arrow' ></i>
-                        </div>
-                        <ul className="sub-menu">
-                            <li><a className="link_name" href="#">Plugins</a></li>
-                            <li><a href="#">UI Face</a></li>
-                            <li><a href="#">Pigments</a></li>
-                            <li><a href="#">Box Icons</a></li>
-                        </ul>
-                    </li> */}
+
                     <li>
-                        <a href="#" onClick={() => setSelected('product')}>
+                        <a href="#" onClick={() => setSelected('camp')}>
                             <i className='bx bx-compass' ></i>
-                            <span className="link_name">Products</span>
+                            <span className="link_name">Camps</span>
                         </a>
                         <ul className="sub-menu blank">
-                            <li><a className="link_name" href="#">Products</a></li>
+                            <li><a className="link_name" href="#">Camps</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#" onClick={() => setSelected('truck')}>
                             <i className='bx bx-history'></i>
-                            <span className="link_name">Trucks</span>
+                            <span className="link_name">Patients</span>
                         </a>
                         <ul className="sub-menu blank">
-                            <li><a className="link_name" href="#">Trucks History</a></li>
+                            <li><a className="link_name" href="#">Patients History</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" onClick={() => setSelected('reatiler')}>
+                    {/* <li>
+                        <a href="#" onClick={() => setSelected('retailer')}>
                             <i className='bx bx-cog' ></i>
                             <span className="link_name">Retailer</span>
                         </a>
@@ -92,6 +88,15 @@ function Dashboard() {
                             <li><a className="link_name" href="#">Retailer</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#" onClick={() => setSelected('order')}>
+                            <i className='bx bx-cog' ></i>
+                            <span className="link_name">Order</span>
+                        </a>
+                        <ul className="sub-menu blank">
+                            <li><a className="link_name" href="#">Order</a></li>
+                        </ul>
+                    </li> */}
                     <li>
                         <div className="profile-details">
                             <div className="profile-content">
@@ -104,19 +109,18 @@ function Dashboard() {
                             <i className='bx bx-log-out' ></i>
                         </div>
                     </li>
+
                 </ul>
             </div>
             <section className="home-section">
-                {/* <div className="home-content">
-                    <i className='bx bx-menu' onClick={()=> setMenuOpen(!menuOpen)} ></i>
-                    <span className="text">Hello Admin</span>
-                </div> */}
 
-                 {selected === 'manufacturer' ? <Manufacturer /> : null}
-                 {selected === 'category' ? <Category /> : null}
-                 {selected === 'product' ? <Product /> : null}
-                 {selected === 'retailer' ? <Retailer /> : null}
-                 {selected === 'truck' ? <Retailer /> : null}
+                {selected === 'location' ? <Location /> : null}
+                {selected === 'faculty' ? <Faculty /> : null}
+                {selected === 'camp' ? <Camp /> : null}
+                {selected === 'retailer' ? <Retailer /> : null}
+                {selected === 'truck' ? <Truck /> : null}
+                {selected === 'order' ? <Order /> : null}
+
 
 
             </section>

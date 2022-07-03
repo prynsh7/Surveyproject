@@ -1,0 +1,34 @@
+.patientData{
+    min-height: 100vh;
+    max-width: 100vw;
+
+    .patient-list{
+        padding-top: 200px;        
+        width: 70%;
+        margin: auto;
+
+        .patient{
+            border: solid 1px red ;
+            display: flex;
+            border-radius: 10px;
+            padding: 10px ;
+            align-items: center;
+            margin-bottom: 15px;
+
+            p{
+                margin: 0;
+            }
+            .controls{
+                margin-left: auto;
+                button{
+                    margin: 0 10px;
+                    padding: 5px 10px;
+                    border-radius: 10px;
+                }
+            }
+
+        }
+    }
+
+    
+}

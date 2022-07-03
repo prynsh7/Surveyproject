@@ -1,22 +1,27 @@
 import React, { useState, useEffect} from 'react'
-import { GET_MANUFACTURER } from '../../utils/apiConstant';
-import ManufacturerModal from '../Modal/ManufacturerModal';
-import "./Manufacturer.scss"
+import { GET_LOCATIONS } from '../../utils/apiConstant';
+import LocationModal from '../Modal/LocationModal';
+import "./Location.scss"
 import axios from "axios"
 
 function Manufacturer() {
 
-    const [manufacturer, setManufacturer] = useState();
+    const [manufacturer, setManufacturer] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [data, setData] = useState()
     const [trigger, setTrigger] = useState(false)
 
+    const auth = localStorage.getItem("auth");
+
+    const headers = {
+        "Authorization" :  `Bearer ${auth}`
+    }
 
     const getData = async () => {
-        await axios.get(GET_MANUFACTURER)
+        await axios.get(GET_LOCATIONS, {headers: headers})
             .then(res => {
                 console.log(res)
-                setManufacturer(res.data)
+                setManufacturer(res.data.data)
             })
             .catch(err => {
                 console.log(err)
@@ -37,9 +42,9 @@ function Manufacturer() {
 
     return (
         <div className='content'>
-            <ManufacturerModal showModal={showModal} setShowModal={setShowModal} data={data} setData={setData} setTrigger={setTrigger} />
+            <LocationModal showModal={showModal} setShowModal={setShowModal} data={data} setData={setData} setTrigger={setTrigger} />
             <div className="header">
-                <button onClick={openModal} >Add Manufacturer</button>
+                <button onClick={openModal} >Add Location</button>
             </div>
 
             <table class="table">
@@ -48,20 +53,11 @@ function Manufacturer() {
                         <th scope="col">#</th>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">address</th>
-                        <th scope="col">image</th>
-                        <th scope="col">rating</th>
-                        <th scope="col">min_order_value</th>
-                        <th scope="col">avg_delivery_time</th>
-                        <th scope="col">status</th>
-                        <th scope="col">Setting</th>
-                        
+                        <th scope="col">Address</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {manufacturer && manufacturer.map((data, key) => {
+                    {manufacturer ?  manufacturer.map((data, key) => {
                         return <tr>
                             <th scope="row">{key + 1}</th>
                             <td>{data.id}</td>
@@ -81,7 +77,7 @@ function Manufacturer() {
                             openModal()
                              }}>Edit</button></td>
                         </tr>
-                    })}
+                    }) : null}
                 </tbody>
             </table>
         </div>
