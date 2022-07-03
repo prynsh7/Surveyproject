@@ -4,7 +4,7 @@ import LocationModal from '../Modal/LocationModal';
 import "./Location.scss"
 import axios from "axios"
 
-function Manufacturer() {
+function Location() {
 
     const [manufacturer, setManufacturer] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -84,4 +84,4 @@ function Manufacturer() {
     )
 }
 
-export default Manufacturer
+export default Location
